@@ -1,0 +1,8 @@
+[env]
+CARGO_MAKE_WORKSPACE_SKIP_MEMBERS = ["xtask"]
+RUST_BACKTRACE = 1
+VST3_USER_FOLDER = { value = "${HOME}/Library/Audio/Plug-Ins/VST3/", condition = { platforms = [
+  "mac",
+], env_not_set = [
+  "VST3_USER_FOLDER",
+] } }

@@ -1,0 +1,10 @@
+[tasks.build-plugins]
+command = "cargo"
+args = ["xtask", "bundle", "tone-generator"]
+
+[tasks.uninstall]
+script = "rm -rf ${VST3_USER_FOLDER}/tone-generator.vst3"
+
+[tasks.install]
+dependencies = ["build-plugins", "uninstall"]
+script = "cp -rv ${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/bundled/tone-generator.vst3 ${VST3_USER_FOLDER}/tone-generator.vst3"
