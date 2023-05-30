@@ -1,4 +1,4 @@
-# Audio Plugin Dev Utilities
+# Audio Development Utility Plugins
 
 A collection of single-purpose VST3 and CLAP plugins that are useful for audio plugin development.
 
