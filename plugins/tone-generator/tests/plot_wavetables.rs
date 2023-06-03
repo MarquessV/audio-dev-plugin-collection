@@ -12,6 +12,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         ("Triangle", &BLUE, wavetable::get_triangle_table()),
         ("Saw", &GREEN, wavetable::get_saw_table()),
         ("Square", &YELLOW, wavetable::get_square_table()),
+        ("Noise", &MAGENTA, wavetable::get_noise_table()),
     ];
 
     let path = std::path::Path::new(env!("CARGO_TARGET_TMPDIR")).join(OUT_FILE_NAME);

@@ -1,8 +1,10 @@
+pub use noise::get_noise_table;
 pub use saw::get_saw_table;
 pub use sin::get_sin_table;
 pub use square::get_square_table;
 pub use triangle::get_triangle_table;
 
+mod noise;
 mod saw;
 mod sin;
 mod square;
@@ -39,4 +41,5 @@ pub fn initialize_tables() {
     get_triangle_table();
     get_saw_table();
     get_square_table();
+    get_noise_table();
 }

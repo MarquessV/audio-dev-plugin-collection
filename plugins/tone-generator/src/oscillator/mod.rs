@@ -1,8 +1,8 @@
 use nih_plug::prelude::*;
 
 use wavetable::{
-    get_saw_table, get_sin_table, get_square_table, get_triangle_table, initialize_tables, Table,
-    TABLE_SIZE, TABLE_SIZE_MASK,
+    get_noise_table, get_saw_table, get_sin_table, get_square_table, get_triangle_table,
+    initialize_tables, Table, TABLE_SIZE, TABLE_SIZE_MASK,
 };
 
 pub mod wavetable;
@@ -14,6 +14,7 @@ pub enum WavetableType {
     Triangle,
     Saw,
     Square,
+    Noise,
 }
 
 /// A simple wavetable oscillator. The backing tables are single periods of the corresponding
@@ -56,6 +57,7 @@ impl Wavetable<'_> {
             WavetableType::Triangle => get_triangle_table(),
             WavetableType::Saw => get_saw_table(),
             WavetableType::Square => get_square_table(),
+            WavetableType::Noise => get_noise_table(),
         }
     }
 
