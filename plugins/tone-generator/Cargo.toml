@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Marquess Valdez <marquessavaldez@gmail.com>"]
 license = "GPL-3.0-or-later"
-description = "A collection of plugins for developing plugins"
+description = "A simple tone generator plugin"
 
 [lib]
 crate-type = ["cdylib", "rlib"]

@@ -83,30 +83,37 @@ impl Plugin for ToneGenerator<'static> {
 
     const VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
-    const DEFAULT_INPUT_CHANNELS: u32 = 0;
-    const DEFAULT_OUTPUT_CHANNELS: u32 = 2;
-
-    const DEFAULT_AUX_INPUTS: Option<AuxiliaryIOConfig> = None;
-    const DEFAULT_AUX_OUTPUTS: Option<AuxiliaryIOConfig> = None;
+    // Stereo by default, but can be configured to be mono.
+    const AUDIO_IO_LAYOUTS: &'static [AudioIOLayout] = &[
+        AudioIOLayout {
+            main_input_channels: None,
+            main_output_channels: NonZeroU32::new(2),
+            aux_input_ports: &[],
+            aux_output_ports: &[],
+            names: PortNames::const_default(),
+        },
+        AudioIOLayout {
+            main_input_channels: NonZeroU32::new(1),
+            main_output_channels: NonZeroU32::new(1),
+            ..AudioIOLayout::const_default()
+        },
+    ];
 
     const MIDI_INPUT: MidiConfig = MidiConfig::None;
     const MIDI_OUTPUT: MidiConfig = MidiConfig::None;
 
     const SAMPLE_ACCURATE_AUTOMATION: bool = true;
 
+    type SysExMessage = ();
     type BackgroundTask = ();
 
     fn params(&self) -> Arc<dyn Params> {
         self.params.clone()
     }
 
-    fn accepts_bus_config(&self, config: &BusConfig) -> bool {
-        config.num_input_channels == config.num_output_channels && config.num_input_channels > 0
-    }
-
     fn initialize(
         &mut self,
-        _bus_config: &BusConfig,
+        _audio_io_layout: &AudioIOLayout,
         buffer_config: &BufferConfig,
         _context: &mut impl InitContext<Self>,
     ) -> bool {
@@ -153,7 +160,6 @@ impl ClapPlugin for ToneGenerator<'static> {
     const CLAP_MANUAL_URL: Option<&'static str> = Some(Self::URL);
     const CLAP_SUPPORT_URL: Option<&'static str> = None;
 
-    // Don't forget to change these features
     const CLAP_FEATURES: &'static [ClapFeature] = &[
         ClapFeature::Utility,
         ClapFeature::Stereo,
@@ -165,10 +171,8 @@ impl ClapPlugin for ToneGenerator<'static> {
 impl Vst3Plugin for ToneGenerator<'static> {
     // Must be exactly 16 characters
     const VST3_CLASS_ID: [u8; 16] = *b"MrqssDev_ToneGen";
-
-    // And don't forget to change these categories, see the docstring on `VST3_CATEGORIES` for more
-    // information
-    const VST3_CATEGORIES: &'static str = "Fx|Generator";
+    const VST3_SUBCATEGORIES: &'static [Vst3SubCategory] =
+        &[Vst3SubCategory::Fx, Vst3SubCategory::Generator];
 }
 
 nih_export_clap!(ToneGenerator<'static>);
