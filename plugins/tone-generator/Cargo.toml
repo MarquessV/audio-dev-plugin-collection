@@ -18,4 +18,4 @@ approx = "0.5.1"
 float-cmp = "0.9.0"
 # At the time of writing, the latest release of plotters on crates.io was broken
 # on Rust 1.70. When published, v0.3.5 or greater should work.
-plotters = { git = "https://github.com/plotters-rs/plotters", revision = "165b3a3" }
+plotters = { git = "https://github.com/plotters-rs/plotters", rev = "165b3a3" }
