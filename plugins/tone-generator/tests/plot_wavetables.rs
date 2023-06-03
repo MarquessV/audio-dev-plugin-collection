@@ -8,10 +8,10 @@ const OUT_FILE_NAME: &str = "wavetables.png";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let wavetables = [
-        ("Sine", &RED, &*wavetable::SIN_TABLE),
-        ("Triangle", &BLUE, &*wavetable::TRIANGLE_TABLE),
-        ("Saw", &GREEN, &*wavetable::SAW_TABLE),
-        ("Square", &YELLOW, &*wavetable::SQUARE_TABLE),
+        ("Sine", &RED, wavetable::get_sin_table()),
+        ("Triangle", &BLUE, wavetable::get_triangle_table()),
+        ("Saw", &GREEN, wavetable::get_saw_table()),
+        ("Square", &YELLOW, wavetable::get_square_table()),
     ];
 
     let path = std::path::Path::new(env!("CARGO_TARGET_TMPDIR")).join(OUT_FILE_NAME);

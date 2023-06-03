@@ -1,10 +1,9 @@
 use nih_plug::prelude::*;
 
 use wavetable::{
-    initialize_tables, SIN_TABLE, SQUARE_TABLE, TABLE_SIZE, TABLE_SIZE_MASK, TRIANGLE_TABLE,
+    get_saw_table, get_sin_table, get_square_table, get_triangle_table, initialize_tables, Table,
+    TABLE_SIZE, TABLE_SIZE_MASK,
 };
-
-use self::wavetable::{Table, SAW_TABLE};
 
 pub mod wavetable;
 
@@ -40,7 +39,7 @@ impl<'a> Default for Wavetable<'a> {
     fn default() -> Self {
         initialize_tables();
         Self {
-            table: &SIN_TABLE,
+            table: get_sin_table(),
             frequency: 440.0,
             sample_rate: 44100.0,
             delta: 0.0,
@@ -53,10 +52,10 @@ impl Wavetable<'_> {
     /// Set the wavetable to oscillate over.
     pub fn set_wavetable(&mut self, kind: &WavetableType) {
         self.table = match kind {
-            WavetableType::Sine => &SIN_TABLE,
-            WavetableType::Triangle => &TRIANGLE_TABLE,
-            WavetableType::Saw => &SAW_TABLE,
-            WavetableType::Square => &SQUARE_TABLE,
+            WavetableType::Sine => get_sin_table(),
+            WavetableType::Triangle => get_triangle_table(),
+            WavetableType::Saw => get_saw_table(),
+            WavetableType::Square => get_square_table(),
         }
     }
 

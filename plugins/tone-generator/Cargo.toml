@@ -11,10 +11,11 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 nih_plug.workspace = true
-once_cell = "1.17.1"
 rand = "0.8.5"
 
 [dev-dependencies]
 approx = "0.5.1"
 float-cmp = "0.9.0"
-plotters = "0.3.4"
+# At the time of writing, the latest release of plotters on crates.io was broken
+# on Rust 1.70. When published, v0.3.5 or greater should work.
+plotters = { git = "https://github.com/plotters-rs/plotters", revision = "165b3a3" }

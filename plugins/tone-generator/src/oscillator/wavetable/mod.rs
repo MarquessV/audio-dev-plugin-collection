@@ -1,7 +1,7 @@
-pub use saw::SAW_TABLE;
-pub use sin::SIN_TABLE;
-pub use square::SQUARE_TABLE;
-pub use triangle::TRIANGLE_TABLE;
+pub use saw::get_saw_table;
+pub use sin::get_sin_table;
+pub use square::get_square_table;
+pub use triangle::get_triangle_table;
 
 mod saw;
 mod sin;
@@ -31,12 +31,12 @@ impl Table {
     }
 }
 
-/// Ensures that the static tables defined using [`once_cell`] are initialized.
+/// Ensures that the static tables defined using [`std::sync::OnceLock`] are initialized.
 /// This should be called before the tables are used in an audio thread to avoid
 /// an expensive computation and allocation during processing.
 pub fn initialize_tables() {
-    _ = &*SIN_TABLE;
-    _ = &*TRIANGLE_TABLE;
-    _ = &*SAW_TABLE;
-    _ = &*SQUARE_TABLE;
+    get_sin_table();
+    get_triangle_table();
+    get_saw_table();
+    get_square_table();
 }
